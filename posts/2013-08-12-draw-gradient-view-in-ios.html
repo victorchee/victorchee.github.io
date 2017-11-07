@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>iOS中绘制渐变视图</title>
+</head>
+
+<body>
+    <header>iOS中绘制渐变视图</header>
+    <ul>
+        <li>放射渐变</li>
+        <code>
+<pre>
+CGContextRef context = UIGraphicsGetCurrentContext();
+        
+size_t num_locations = 2;
+CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+CGFloat components[8] = {1,1,1,1, // 中心颜色（r， g， b， alpha）
+                     .2,.2,.2,1 // 边缘颜色};
+CGFloat locations[2] = {0,1};
+        
+CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, components, locations, num_locations);
+CGColorSpaceRelease(rgb);
+CGRect bounds = self.bounds;
+CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+        
+// 中心发散渐进
+CGContextDrawRadialGradient(context, gradient, center, 0, center, bounds.size.width, kCGGradientDrawsAfterEndLocation);
+        
+CGGradientRelease(gradient);  
+</pre>
+</code>
+        <li>线形渐变</li>
+        <code>
+<pre>
+CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+gradientLayer.frame = self.view.frame;
+gradientLayer.colors = [NSArray arrayWithObjects:(id)baseColor.CGColor, (id)barColor.CGColor, nil];
+[self.view.layer insertSublayer:gradientLayer atIndex:0];  
+</pre>
+</code>
+    </ul>
+</body>
+
+</html>
