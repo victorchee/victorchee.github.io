@@ -3,22 +3,27 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="Mac搭建nginx+HLS直播服务器" />
+    <meta name="keywords" content="Mac,nginx,HLS,直播,live" />
     <title>Mac搭建nginx+HLS直播服务器</title>
+    <link rel="stylesheet" type="text/css" href="./styles/style.css" />
 </head>
 
 <body>
     <header>Mac搭建nginx+HLS直播服务器</header>
+    <hr />
     <ul>
         <li>安装Homebrew</li>
         <p>由于已经安装过Homebrew了，在此就不多说了。执行<code>brew update</code>更新Homebrew。</p>
 
         <li>安装nginx+rtmp模块</li>
 
-        <p>先clone nginx到本地<code>brew tap homebrew/nginx</code>然后执行安装<code>brew install nginx-full --with-rtmp-module</code>启动nginx服务<code>nginx</code>，打开<a href="http://localhost:8080" target="_blank">http://localhost:8080</a>，如果出现Welcome to nginx则说明没问题。</p>
+        <p>先clone nginx到本地<kbd>brew tap homebrew/nginx</kbd>然后执行安装<kbd>brew install nginx-full --with-rtmp-module</kbd> 启动nginx服务
+            <kbd>nginx</kbd>，打开<a href="http://localhost:8080" target="_blank">http://localhost:8080</a>， 如果出现Welcome to nginx则说明没问题。</p>
 
         <li>配置HLS</li>
 
-        <p>打开nginx的配置文件<code>open /usr/local/etc/nginx/nginx.conf</code><br />在http节点中的server中增加</p>
+        <p>打开nginx的配置文件<kbd>open /usr/local/etc/nginx/nginx.conf</kbd><br />在http节点中的server中增加</p>
 
         <pre>
     <code>
@@ -74,22 +79,24 @@
     </code>
 </pre>
 
-        <p><code>nginx -s reload</code>重新加载nginx配置。</p>
+        <p><kbd>nginx -s reload</kbd>重新加载nginx配置。</p>
 
         <li>测试推流和拉流</li>
 
-        <p>安装ffmpeg<code>brew install ffmpeg</code>测试推流<code>ffmpeg -loglevel verbose -re -i  ~/Downloads/foam.mp4  -vcodec libx264 -vprofile baseline -acodec libmp3lame -ar 44100 -ac 1 -f flv rtmp://localhost:1935/hls/hlslive</code>打开<a href="http://localhost:8080/hls/hlslive.m3u8"
-                target="_blank">http://localhost:8080/hls/hlslive.m3u8</a>就可以正常看到直播了，生成的ts文件在<code>/usr/local/var/www/hls</code>中。</p>
+        <p>安装ffmpeg<kbd>brew install ffmpeg</kbd> 测试推流
+            <kbd>ffmpeg -loglevel verbose -re -i  ~/Downloads/foam.mp4  -vcodec libx264 -vprofile baseline -acodec libmp3lame -ar 44100 -ac 1 -f flv rtmp://localhost:1935/hls/hlslive</kbd> 打开
+            <a href="http://localhost:8080/hls/hlslive.m3u8" target="_blank">http://localhost:8080/hls/hlslive.m3u8</a>就可以正常看到直播了， 生成的ts文件在/usr/local/var/www/hls中。
+        </p>
 
         <li>关闭nginx</li>
-
-        <code>nginx -s quit</code>
+        <kbd>nginx -s quit</kbd>
     </ul>
-    <footer>参考</footer>
-    <a href="http://www.jianshu.com/p/53059be61546" target="_blank">http://www.jianshu.com/p/53059be61546</a>
-    <br />
-    <a href="http://www.jianshu.com/p/4f0f7674f007" target="_blank">http://www.jianshu.com/p/4f0f7674f007</a>
-
+    <footer>参考
+        <a href="http://www.jianshu.com/p/53059be61546" target="_blank">http://www.jianshu.com/p/53059be61546</a>
+        <br />
+        <a href="http://www.jianshu.com/p/4f0f7674f007" target="_blank">http://www.jianshu.com/p/4f0f7674f007</a>
+    </footer>
+    <script src="./scripts/main.js"></script>
 </body>
 
 </html>
