@@ -64,7 +64,7 @@
 
     <pre>
 	<code>
-NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+	NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"version_preference"];
 
     NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
