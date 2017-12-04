@@ -17,61 +17,58 @@
         <br />新建一个Setting.bundle File->New->File...->Resource->Setting Bundle，名字默认就可以了。
         <br />修改Root.plist Preference Items里面有默认的好几项，删掉重新添加一个Group和两个Title，参考如下：</p>
 
-    <pre>
-	<code>
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>Title</key>
-			<string>Info</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>-</string>
-			<key>Key</key>
-			<string>version_preference</string>
-			<key>Title</key>
-			<string>Version</string>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>build_preference</string>
-			<key>Title</key>
-			<string>Build</string>
-			<key>DefaultValue</key>
-			<string>-</string>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-		</dict>
-	</array>
-	<key>StringsTable</key>
-	<string>Root</string>
-</dict>
-</plist>
+    <!-- xmp标签在HTML5中已经被废弃，但是pre标签不能正确显示xml源码，待研究 -->
+    <xmp>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+            <dict>
+                <key>PreferenceSpecifiers</key>
+                <array>
+                    <dict>
+                        <key>Title</key>
+                        <string>Info</string>
+                        <key>Type</key>
+                        <string>PSGroupSpecifier</string>
+                    </dict>
+                    <dict>
+                        <key>DefaultValue</key>
+                        <string>-</string>
+                        <key>Key</key>
+                        <string>version_preference</string>
+                        <key>Title</key>
+                        <string>Version</string>
+                        <key>Type</key>
+                        <string>PSTitleValueSpecifier</string>
+                    </dict>
+                    <dict>
+                        <key>Key</key>
+                        <string>build_preference</string>
+                        <key>Title</key>
+                        <string>Build</string>
+                        <key>DefaultValue</key>
+                        <string>-</string>
+                        <key>Type</key>
+                        <string>PSTitleValueSpecifier</string>
+                    </dict>
+                </array>
+                <key>StringsTable</key>
+                <string>Root</string>
+            </dict>
+        </plist>
+    </xmp>
 
-</code>
-</pre>
-
-    <p>写入版本信息 在`- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`中向Setting.bundle中写入版本信息</p>
+    <p>写入版本信息 在<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>中向Setting.bundle中写入版本信息</p>
 
     <pre>
 	<code>
 	NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"version_preference"];
+	[[NSUserDefaults standardUserDefaults] setObject:version forKey:@"version_preference"];
 
-    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    [[NSUserDefaults standardUserDefaults] setObject:build forKey:@"build_preference"];
-	
-</code>
-</pre>
+	NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+	[[NSUserDefaults standardUserDefaults] setObject:build forKey:@"build_preference"];
+	</code>
+	</pre>
     <p>完成 编译运行，再到设置里面即可看到版本信息了，大功告成。</p>
 </body>
 
