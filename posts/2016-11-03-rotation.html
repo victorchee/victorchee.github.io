@@ -105,6 +105,22 @@
         <br /> 总的来说就是想清楚Controller的层级关系，比如说TabBarController里面套了NavigationController，NavigationController里面套了ViewController，然后在去设置页面的旋转和朝向就没有错。
         <br /> 最后附上<a href="https://github.com/victorchee/RotationDemo" alt="Rotate Demo">Demo</a>
     </p>
+
+    <hr />
+    <h3>可能遇到的问题</h3>
+    <p>把项目中的所有屏幕朝向都勾选之后，如果手机当前为横屏时启动App，此时App也是横屏的。
+        <br />如果想让App强制竖屏启动，采用以下<a href="https://stackoverflow.com/questions/26003086/launching-into-portrait-orientation-from-an-iphone-6-plus-home-screen-in-landsca">方法</a>:
+        <br />1. 反选项目中的横屏支持，只保持Portrait勾选；
+        <br />2. AppDelegate中加入旋转支持
+    </p>
+    <pre>
+    <code>
+        func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+            return .all
+        }
+    </code>
+</pre>
+
 </body>
 
 </html>
